@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/react.js"></script>
+    <script src="js/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #main {
+            display: inline-block;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="main"></div>
+    <script type="text/babel">
+        document.addEventListener('WebViewBridge', function() {
+            window.WebViewBridge.send(JSON.stringify({key: "ready"}));
+        }, false);
+    </script>
+  </body>
+</html>
