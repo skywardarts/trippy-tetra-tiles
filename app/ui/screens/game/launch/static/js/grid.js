@@ -1,7 +1,10 @@
 Game.FallingPentomino = function () {
     this.y     = 0;
     this.x     = Math.floor(GRID_SIZE_W / 2 - 2.5);
+    this.color = _.sample(['#77DD77', '#B39EB5', '#C23B22', '#FFB347', '#FDFD96', '#836953', '#779ECB', '#FFD1DC']);
     this.shape = _.sample(Game.PENTOMINO_SHAPES); // Game.PENTOMINO_SHAPES[2];
+    this.width = this.getDimensions().width;
+    this.height = this.getDimensions().height;
 };
 
 Game.FallingPentomino.prototype = {
@@ -13,6 +16,41 @@ Game.FallingPentomino.prototype = {
         this.y     = 0;
         this.x     = Math.floor(GRID_SIZE_W / 2 - 2.5);
         this.shape = shape !== undefined ? _.cloneDeep(shape) : _.sample(Game.PENTOMINO_SHAPES);
+    },
+    getDimensions: function() {
+        var result = {width: 0, height: 0};
+
+        for(var row = 0; row < this.shape.length; row++) {
+            var width = 0;
+
+            for(var col = 0; col < this.shape[row].length; col++) {
+                if (this.shape[row][col] != 0) {
+                    this.shape[row][col] = this.color;
+                    width += 1;
+                }
+            }
+
+            if (result.width < width) {
+                result.width = width;
+            }
+        }
+
+        for(var row = 0; row < this.shape.length; row++) {
+            var height = 0;
+
+            for(var col = 0; col < this.shape[row].length; col++) {
+                if (this.shape[col][row] != 0) {
+                    this.shape[col][row] = this.color;
+                    height += 1;
+                }
+            }
+
+            if (result.height < height) {
+                result.height = height;
+            }
+        }
+
+        return result;
     }
 }
 
@@ -23,7 +61,7 @@ Game.Grid = function (state) {
     // returns a new bidimensional array sized w * h with each cell set to 0
     this.makeGrid = function (w, h) {
         return _.map(_.range(h), function () { return _.map(_.range(w), function () { return 0;});});
-    }
+    };
 
     this.makePentominoGrid = _.partial(this.makeGrid, GRID_SIZE_W, GRID_SIZE_H);
     this.makeFallingGrid   = _.partial(this.makeGrid, GRID_SIZE_W, GRID_SIZE_H + 5);
@@ -50,12 +88,12 @@ Game.Grid = function (state) {
     this.shakeBackgroundOriginal = {
         x: this.state.background.x,
         y: this.state.background.y
-    }
+    };
     // original position of the falling pentomino to be used to return to it after the shaking
     this.shakePentominosOriginal = {
         x: this.state.pentominos.x,
         y: this.state.pentominos.y
-    }
+    };
 };
 
 Game.Grid.prototype = {
@@ -81,7 +119,7 @@ Game.Grid.prototype = {
             // gameover?
             if (_.any(this.pentomino.shape, function (row, y) {
                 return _.any(row, function (cell, x) {
-                    if (cell == 1) {
+                    if (cell != 0) {
                         return self.pentomino.y + y - 5 < 0;
                     }
                 });
@@ -94,8 +132,8 @@ Game.Grid.prototype = {
             // draw the pentomino on the board
             _.each(this.pentomino.shape, function (row, y) {
                 _.each(row, function (cell, x) {
-                    if (cell == 1) {
-                        self.grid[self.pentomino.y + y - 5][self.wrapCell(self.pentomino.x + x)] = 1;
+                    if (cell != 0) {
+                        self.grid[self.pentomino.y + y - 5][self.constrainCell(self.pentomino.x + x, self.pentomino.width)] = self.pentomino.color;
                     }
                 });
             });
@@ -104,8 +142,8 @@ Game.Grid.prototype = {
             Game.status        = STATUS_PLAYING;
             this.state.speedUp = 0;
 
-            this.pentomino.reset(this.nextPentomino.shape);
-            this.nextPentomino.reset();
+            this.pentomino = this.nextPentomino; //.reset(this.nextPentomino.shape);
+            this.nextPentomino = new Game.FallingPentomino();//null//.reset();
 
             this.drawNextPentomino();
         }
@@ -113,8 +151,8 @@ Game.Grid.prototype = {
         // update falling pentomino by drawing it on the new, lower position
         _.each(this.pentomino.shape, function (row, y) {
             _.each(row, function (cell, x) {
-                if (cell == 1) {
-                    fallingGrid[self.pentomino.y + y][self.wrapCell(self.pentomino.x + x)] = 1;
+                if (cell != 0) {
+                    fallingGrid[self.pentomino.y + y][self.constrainCell(self.pentomino.x + x, self.pentomino.width)] = self.pentomino.color;
                 }
             });
         });
@@ -123,7 +161,7 @@ Game.Grid.prototype = {
 
         // check for complete lines and if found, freeze the game and start the "explode" animation
         if (_.any(this.grid, function (row, y) {
-            return _.all(row, function (cell) { return cell == 1; });
+            return _.all(row, function (cell) { return cell != 0; });
         }))
         {
             Game.status          = STATUS_REMOVING_LINES;
@@ -144,6 +182,15 @@ Game.Grid.prototype = {
         return cellX;
     },
 
+    // utility function that constrains a cell x value around the grid
+    // so that it never gets outside the grid
+    constrainCell: function (cellX, width) {
+        console.log(width)
+        if (cellX >= GRID_SIZE_W) return cellX - width;
+        if (cellX <= 0 - width) return -width;
+        return cellX;
+    },
+
     createExplodingParticles: function (lineNum, row) {
         var self = this;
 
@@ -152,15 +199,15 @@ Game.Grid.prototype = {
         self.explodingGroup.enableBody = true;
         self.explodingGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        // create a black square as gfx for the particles
-        var explodingRect = game.make.bitmapData(GRID_CELL_SIZE / 2, GRID_CELL_SIZE / 2);
-        explodingRect.ctx.fillStyle = '#000000';
-        explodingRect.ctx.fillRect(0, 0, GRID_CELL_SIZE / 2, GRID_CELL_SIZE / 2);explodingRect.ctx.fillRect(0, 0, GRID_CELL_SIZE / 2, GRID_CELL_SIZE / 2);
-
         // create two rows of particles to take the place of the removed line
         _.times(2, function (y) {
             _.each(row, function (cell, x) {
-                if (cell === 1) {
+                if (cell != 0) {
+                    // create a black square as gfx for the particles
+                    var explodingRect = game.make.bitmapData(GRID_CELL_SIZE / 2, GRID_CELL_SIZE / 2);
+                    explodingRect.ctx.fillStyle = _.sample(['#77DD77', '#B39EB5', '#C23B22', '#FFB347', '#FDFD96', '#836953', '#779ECB', '#FFD1DC']);
+                    explodingRect.ctx.fillRect(0, 0, GRID_CELL_SIZE / 2, GRID_CELL_SIZE / 2);
+
                     var explodingSprite = new Phaser.Sprite(self.state.game, (x * GRID_CELL_SIZE) + GRID_X, ((y * GRID_CELL_SIZE / 2) + lineNum * GRID_CELL_SIZE) + GRID_Y, explodingRect);
                     self.explodingGroup.add(explodingSprite);
 
@@ -233,7 +280,7 @@ Game.Grid.prototype = {
             // find the first complete line and remove it
             removeFirstLine = function () {
                 var lineToRemove = _.findIndex(self.grid, function (row) {
-                        return _.all(row, function (cell) { return cell == 1; });
+                        return _.all(row, function (cell) { return cell != 0; });
                     });
 
                 // return if there are no complete lines
@@ -260,7 +307,7 @@ Game.Grid.prototype = {
             // makeTheRowFall = function () {
             //     // find the line that is being removed
             //     var removedLine = _.findIndex(self.grid, function (row) {
-            //             return _.all(row, function (cell) { return cell == 1; });
+            //             return _.all(row, function (cell) { return cell != 0; });
             //         }),
 
             //         // create a bitmap as storage for the temporary pantomino image
@@ -323,7 +370,7 @@ Game.Grid.prototype = {
             break;
             case STATUS_EXPLODING_FALLING:
                 var removedLine = _.findIndex(self.grid, function (row) {
-                        return _.all(row, function (cell) { return cell == 1; });
+                        return _.all(row, function (cell) { return cell != 0; });
                     });
 
                 this.shake();
@@ -369,7 +416,7 @@ Game.Grid.prototype = {
         switch (this.gameoverStatus) {
             case STATUS_GAMEOVER_EXPLODING_START:
                 // check if the last line has at least one black cell
-                if (_.any(this.grid[GRID_SIZE_H - 1], function (cell) { return cell === 1; })) {
+                if (_.any(this.grid[GRID_SIZE_H - 1], function (cell) { return cell != 0; })) {
                     // replace each black cell with 4 exploding pieces
                     this.createExplodingParticles(GRID_SIZE_H - 1, this.grid[GRID_SIZE_H - 1])
 
@@ -424,23 +471,36 @@ Game.Grid.prototype = {
     // of the already drawn pentomino grid
     // can optionally also check if any cell is outiside the lower bound of the grid (> grid height)
     pentominoCollides: function (checkOutBounds) {
-        if (checkOutBounds === undefined) checkOutBounds = false;
-
-    },
-
-    // check if any cell of the falling pentomino in the current position overlaps any cell
-    // of the already drawn pentomino grid
-    // can optionally also check if any cell is outiside the lower bound of the grid (> grid height)
-    pentominoCollides: function (checkOutBounds) {
-        if (checkOutBounds === undefined) checkOutBounds = false;
+        if (checkOutBounds === undefined) checkOutBounds = true;
 
         var self = this;
-
+console.log(this.pentomino.shape);
         return _.any(this.pentomino.shape, function (row, y) {
             return _.any(row, function (cell, x) {
-                return cell == 1 && (
-                    (checkOutBounds ? y + self.pentomino.y - 5 >= GRID_SIZE_H : false)
-                    || self.pentomino.y + y - 5 >= 0 && self.pentomino.y + y - 5 < GRID_SIZE_H && self.grid[self.pentomino.y + y - 5][self.wrapCell(self.pentomino.x + x)] == 1);
+                if (!(cell != 0)) {
+                    return;
+                }
+
+                if (checkOutBounds && (y + self.pentomino.y - 5) >= GRID_SIZE_H) {
+                    return true;
+                }
+
+                if (checkOutBounds && (self.pentomino.x) <= -3) {
+                    return true;
+                }
+
+                if (checkOutBounds && (x + self.pentomino.x) >= GRID_SIZE_W) {
+                    return true;
+                }
+
+                if (self.pentomino.y + y - 5 >= 0 
+                    && self.pentomino.y + y - 5 < GRID_SIZE_H 
+                    && self.grid[self.pentomino.y + y - 5][self.constrainCell(self.pentomino.x + x, self.pentomino.width)] != 0
+                ) {
+                    return true;
+                }
+
+                return false;
             });
         })
     },
@@ -453,8 +513,8 @@ Game.Grid.prototype = {
 
         _.each(this.nextPentomino.shape, function (row, y) {
             _.each(row, function (cell, x) {
-                if (cell == 1) {
-                    self.state.nextPentomino.key.rect(x * GRID_CELL_SIZE, y * GRID_CELL_SIZE, GRID_CELL_SIZE, GRID_CELL_SIZE);
+                if (cell != 0) {
+                    self.state.nextPentomino.key.rect(x * GRID_CELL_SIZE, y * GRID_CELL_SIZE, GRID_CELL_SIZE, GRID_CELL_SIZE, self.nextPentomino.color);
                 }
             });
         });
@@ -472,8 +532,11 @@ Game.Grid.prototype = {
             if (skip == y) return;
 
             _.each(row, function (cell, x) {
-                if (cell == 1 || (fallingGrid ? fallingGrid[y+5][x] == 1 : false)) {
-                    self.pentominosData.rect(x * GRID_CELL_SIZE, y * GRID_CELL_SIZE, GRID_CELL_SIZE, GRID_CELL_SIZE);
+                if (cell != 0) {
+                    self.pentominosData.rect(x * GRID_CELL_SIZE, y * GRID_CELL_SIZE, GRID_CELL_SIZE, GRID_CELL_SIZE, cell);
+                }
+                if (fallingGrid ? fallingGrid[y+5][x] != 0 : false) {
+                    self.pentominosData.rect(x * GRID_CELL_SIZE, y * GRID_CELL_SIZE, GRID_CELL_SIZE, GRID_CELL_SIZE, fallingGrid[y+5][x]);
                 }
             });
         });
@@ -489,8 +552,11 @@ Game.Grid.prototype = {
         this.pentomino.rotate();
 
         // revert to previous shape if rotating the shape is illegal
-        if (this.pentominoCollides()) this.pentomino.shape = currentShape;
+        if (this.pentominoCollides(true)) this.pentomino.shape = currentShape;
 
+        this.pentomino.width = this.pentomino.getDimensions().width;
+        this.pentomino.height = this.pentomino.getDimensions().height;
+        console.log(this.pentomino.width, this.pentomino.height);
         this.update(false);
     },
 
@@ -504,7 +570,7 @@ Game.Grid.prototype = {
 
         // if the movement makes it collide with a full cell of the pentomino grid, reset the position
         // preventing the movement
-        if (this.pentominoCollides()) {
+        if (this.pentominoCollides(true)) {
             this.pentomino.x -= direction;
             return;
         }

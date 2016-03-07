@@ -1,8 +1,8 @@
 // old school plasma effect for the background. based off http://www.bidouille.org/prog/plasma
-Game.PlasmaBackground = function (backgrounData) {
+Game.PlasmaBackground = function (backgroundData) {
     this.MAGIC_NUM_1  = 16,
     this.MAGIC_NUM_2  = 30,
-    this.COUNTER_STEP = 0.02,
+    this.COUNTER_STEP = 0.2,
 
     // this.PALETTE = ['ff004d', 'ffa300', 'ab5236', 'ffff27', '00e756', '008751', '29adff', '1d2b53', '83769c', '7e2553', 'ff77a8', 'ffccaa'],
     this.PALETTE = [ { r: 255, g: 0, b: 77, a: 255 },
@@ -18,7 +18,7 @@ Game.PlasmaBackground = function (backgrounData) {
                      { r: 255, g: 119, b: 168, a: 255 },
                      { r: 255, g: 204, b: 170, a: 255 } ],
 
-    this.backgroundData = backgrounData;
+    this.backgroundData = backgroundData;
     this.globalCounter  = 0;
 }
 

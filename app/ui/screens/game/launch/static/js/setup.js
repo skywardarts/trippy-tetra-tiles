@@ -1,5 +1,5 @@
 var GAME_W               = 256,
-    GAME_H               = 223,
+    GAME_H               = 523,
 
     GRID_SIZE_W          = 10,
     GRID_SIZE_H          = 20,
@@ -13,7 +13,7 @@ var GAME_W               = 256,
     NEXT_PENTOMINO_WIDTH  = 50
     NEXT_PENTOMINO_HEIGHT = 60,
 
-    PLASMA_CELL_SIZE     = 1,
+    PLASMA_CELL_SIZE     = 2,
 
     INITIAL_SPEED        = 500,
 
@@ -64,13 +64,13 @@ var GAME_W               = 256,
         width:  27,
         height: 27,
 
-        number3Rect: new Phaser.Rectangle(310, 0, 27, 27),
-        number2Rect: new Phaser.Rectangle(283, 0, 27, 27),
-        number1Rect: new Phaser.Rectangle(256, 0, 27, 27),
+        number3Rect: new Phaser.Rectangle(311, 0, 27, 27),
+        number2Rect: new Phaser.Rectangle(284, 0, 27, 27),
+        number1Rect: new Phaser.Rectangle(257, 0, 27, 27),
 
-        duration:   1200,
+        duration:   500,
         delay:      200,
-        startDelay: 300,
+        startDelay: 100,
 
         initialSize: 0.1,
         scaleFactor: 4
@@ -81,7 +81,7 @@ var GAME_W               = 256,
         y:      40,
         width:  119,
         height: 62,
-        rect:   new Phaser.Rectangle(0, 224, 119, 62),
+        rect:   new Phaser.Rectangle(0, 477, 119, 62),
         scale:  2
     },
 

@@ -42,11 +42,15 @@ Game.Main = function (game) {
 Game.Main.prototype = {
     init: function() {
         this.debugMode = false;
+
+        game.add.plugin(Phaser.Plugin.Debug);
     },
     preload: function () {
         this.game.time.advancedTiming = true;
         //setting loading screen background
         this.game.stage.backgroundColor = '#000';
+        // this.load.tilemap('map', 'static/map.json', null, Phaser.Tilemap.TILED_JSON);
+        // this.load.image('tiles', 'static/tileset.png');
 
         //scaling options
         //this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -60,7 +64,14 @@ Game.Main.prototype = {
     },
     create: function () {
         this.goFullScreen();
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        // Create the map
+        // this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        // this.map = this.add.tilemap('map');
+        // this.map.addTilesetImage('Wall', 'tiles');
+
+        // this.layer = this.map.createLayer('Tile Layer 1');
+        // this.layer.resizeWorld();
 
         // hide the real canvas and setup the scaled up one that will be visible
         // http://www.photonstorm.com/phaser/pixel-perfect-scaling-a-phaser-game
@@ -123,13 +134,14 @@ Game.Main.prototype = {
         }
 
         // setup background plasma effect
-        this.background = this.add.image(GRID_X, GRID_Y, this.add.bitmapData(GRID_SIZE_W * GRID_CELL_SIZE / PLASMA_CELL_SIZE, GRID_SIZE_H * GRID_CELL_SIZE / PLASMA_CELL_SIZE));
+        this.background = this.add.image(0, 0, this.add.bitmapData(game.canvas.width / PLASMA_CELL_SIZE * 2, game.canvas.height / PLASMA_CELL_SIZE * 2));
         this.plasmaBackground = new Game.PlasmaBackground(this.background.key);
 
-        this.miniBackground     = this.add.image(7, 88, this.make.bitmapData(63, 84));
+        //this.miniBackground     = this.add.image(7, 88, this.make.bitmapData(63, 84));
 
         // cover background image
         this.backgroundCover = this.add.image(0, 0, Game.assets.images.backgroundCoverData);
+        this.backgroundCover.alpha = 0.8;
 
         // image to display the next pentomino that will fall
         this.nextPentomino = this.add.image(NEXT_PENTOMINO_X, NEXT_PENTOMINO_Y, this.add.bitmapData(NEXT_PENTOMINO_WIDTH, NEXT_PENTOMINO_HEIGHT));
@@ -199,11 +211,14 @@ Game.Main.prototype = {
         // beginSwipe function
         this.overlayGame.input.onDown.add(this.beginSwipe, this);
 
+        setInterval(function() { this.plasmaBackground.update(); }.bind(this), 300);
     },
     update: function () {
-        this.plasmaBackground.update();
+        
+        // this.plasmaBackground.update();
+        // this.plasmaBackground.update();
 
-        this.miniBackground.key.copyRect(this.background.key, new Phaser.Rectangle(0, 0, 63, 84), 0, 0)
+        //this.miniBackground.key.copyRect(this.background.key, new Phaser.Rectangle(0, 0, 63, 84), 0, 0)
 
                 //  Just renders out the pointer data when you touch the canvas
                 // game.debug.pointer(this.overlayGame.input.mousePointer);
@@ -253,6 +268,8 @@ Game.Main.prototype = {
                 this.texts.linesValue.text = String(this.lines);
             break;
         }
+
+        //this.game.physics.arcade.collide(tron1.character, this.layer);
 
     },
     render: function () {
@@ -358,12 +375,12 @@ Game.Main.prototype = {
             // moving left, calling move function with horizontal and vertical tiles to move as arguments
             if(distX>0){
                     console.log('left');
-                    this.grid.rotatePentomino(this.grid, -1);
+                    this.grid.movePentomino.bind(this.grid)(-1);
                }
                // moving right, calling move function with horizontal and vertical tiles to move as arguments
                else{
                 console.log('right');
-                    this.grid.rotatePentomino(this.grid, 1);
+                    this.grid.movePentomino.bind(this.grid)(1);
                }
         }
         // in order to have a vertical swipe, we need that y distance is at least twice the x distance
