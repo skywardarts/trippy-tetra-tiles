@@ -87,15 +87,15 @@ Game.Main.prototype = {
 
             pixel.context = pixel.canvas.getContext('2d');
             Phaser.Canvas.addToDOM(pixel.canvas);
-            Phaser.Canvas.setSmoothingEnabled(pixel.context, false);
-            Phaser.Canvas.setSmoothingEnabled(game.context, false);
+            //Phaser.Canvas.setSmoothingEnabled(pixel.context, false);
+            //Phaser.Canvas.setSmoothingEnabled(game.canvas.getContext('2d'), false);
             pixel.width = pixel.canvas.width;
             pixel.height = pixel.canvas.height;
             // pixel.canvas.style['width'] = window.innerWidth;
             // pixel.canvas.style['height'] = window.innerHeight;
 
 
-            this.overlayGame = new Phaser.Game({width: window.innerWidth, height: window.innerHeight, renderer: Phaser.CANVAS, forceSetTimeOut: true, state: { create: create2.bind(this), render: render2.bind(this), update: update2.bind(this) }});
+            this.overlayGame = new Phaser.Game({width: window.innerWidth, height: window.innerHeight, renderType: Phaser.CANVAS, forceSetTimeOut: true, state: { create: create2.bind(this), render: render2.bind(this), update: update2.bind(this) }});
 
             this.overlayGame.canvas.style['position'] = 'fixed';
             this.overlayGame.canvas.style['top'] = '0';
@@ -131,6 +131,8 @@ Game.Main.prototype = {
             }
         } else {
             this.overlayGame = game;
+            game.canvas.style['width'] = '100%';
+            game.canvas.style['height'] = '100%';
         }
 
         // setup background plasma effect
@@ -211,7 +213,7 @@ Game.Main.prototype = {
         // beginSwipe function
         this.overlayGame.input.onDown.add(this.beginSwipe, this);
 
-        setInterval(function() { this.plasmaBackground.update(); }.bind(this), 300);
+        setInterval(function() { this.plasmaBackground.update(); }.bind(this), 200);
     },
     update: function () {
         
@@ -253,6 +255,10 @@ Game.Main.prototype = {
 
                 this.grid.updateGameOverExplosions();
             break;
+            case STATUS_READY:
+                this.overlayGame.input.onTap.add(this.reset, this);
+
+                Game.status = STATUS_WAITING;
             default:
                 // only update the falling pentomino once in a while (tetris style!)
                 if (this.time.time - this.fallTimeElapsed >= this.speed - this.speedUp) {
@@ -272,6 +278,14 @@ Game.Main.prototype = {
         //this.game.physics.arcade.collide(tron1.character, this.layer);
 
     },
+    reset: function() {
+        this.overlayGame.input.onTap.remove(this.reset, this);
+
+        this.gameover = null;
+        
+        Game.status = STATUS_COUNTDOWN;
+        window.setTimeout(this.countdown.bind(this), COUNTDOWN.startDelay);
+    },
     render: function () {
             if (this.debugMode) {
                 this.displayDebugInfo();
@@ -279,6 +293,8 @@ Game.Main.prototype = {
         // this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
         // this.game.debug.text(this.score || '--', 20, 14, "#00ff00");
 
+            game.canvas.style['width'] = '100%';
+            game.canvas.style['height'] = '100%';
         // copy the canvas content to the scaled-up version
         if (RETRO_LOOK) pixel.context.drawImage(game.canvas, 0, 0, game.width, game.height, 0, 0, pixel.width, pixel.height);
     },

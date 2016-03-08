@@ -22,6 +22,8 @@ var GAME_W               = 256,
     STATUS_FORCE_FALL     = 2,
     STATUS_COUNTDOWN      = 3,
     STATUS_GAMEOVER       = 4,
+    STATUS_READY          = 5,
+    STATUS_WAITING        = 6,
 
     STATUS_EXPLODING_START   = 0,
     STATUS_EXPLODING         = 1,
@@ -85,9 +87,9 @@ var GAME_W               = 256,
         scale:  2
     },
 
-    RETRO_LOOK = true,
+    RETRO_LOOK = false,
 
-    game = new Phaser.Game(GAME_W, GAME_H, Phaser.CANVAS, '', null, false, false),
+    game = new Phaser.Game({width: GAME_W, height: GAME_H, renderType: Phaser.WEBGL, parent: '', preserveDrawingBuffer: true, transparent: false, antialias: false}),
     pixel = { scale: window.innerWidth / GAME_W, canvas: null, context: null, width: 0, height: 0 },
 
     Game = {

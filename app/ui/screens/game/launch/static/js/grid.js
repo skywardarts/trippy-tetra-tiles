@@ -300,7 +300,7 @@ Game.Grid.prototype = {
                     self.explodingFallCount = GRID_CELL_SIZE / GRID_CELL_FALL_SPEED;
                 }, 100);
 
-                self.explodingStatus = STATUS_EXPLODING;
+                self.explodingStatus = STATUS_EXPLODING_FALLING;
             };
 
             // lower by one row all the rows above the removed line
@@ -383,7 +383,7 @@ Game.Grid.prototype = {
                     this.postShakePositionsReset();
 
                     // reset the status to the normal one
-                    Game.status = STATUS_PLAYING;
+                    Game.status = STATUS_READY;
                     return;
                 }
 
