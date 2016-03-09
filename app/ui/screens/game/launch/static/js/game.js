@@ -279,6 +279,7 @@ Game.Main.prototype = {
     reset: function() {
         this.overlayGame.input.onTap.remove(this.reset, this);
 
+        this.speedUp = 0;
         this.gameover.destroy();
         this.gameover = null;
         
@@ -286,9 +287,9 @@ Game.Main.prototype = {
         window.setTimeout(this.countdown.bind(this), COUNTDOWN.startDelay);
     },
     render: function () {
-            if (this.debugMode) {
-                this.displayDebugInfo();
-            }
+        if (this.debugMode) {
+            this.displayDebugInfo();
+        }
         // this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
         // this.game.debug.text(this.score || '--', 20, 14, "#00ff00");
 
