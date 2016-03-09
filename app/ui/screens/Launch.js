@@ -4,12 +4,14 @@ var React = require('react-native');
 var {View, Text, StyleSheet, TouchableHighlight} = React;
 var Button = require('react-native-button');
 var Actions = require('react-native-router-flux').Actions;
+import FacebookButton from '../elements/FacebookButton/FacebookButton';
 
 class Launch extends React.Component {
     render(){
         return (
             <View style={styles.container}>
                 <Text>Launch page</Text>
+                <FacebookButton />
                 <Button onPress={()=>Actions.login({data:"Custom data", title:'Custom title' })}>Go to Login page</Button>
                 <Button onPress={Actions.register}>Go to Register page</Button>
                 <Button onPress={Actions.register2}>Go to Register page without animation</Button>

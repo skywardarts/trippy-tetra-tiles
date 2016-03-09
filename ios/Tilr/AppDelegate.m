@@ -7,6 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "AppDelegate.h"
 
 #import "RCTRootView.h"
@@ -31,7 +33,9 @@
    * on the same Wi-Fi network.
    */
 
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  // http://moduscreate.com/automated-ip-configuration-for-react-native-development/
+  // generate https://github.com/facebook/react-native/issues/240#issuecomment-86977126
+  jsCodeLocation = [NSURL URLWithString:@"http://5e3ab3a5.ngrok.io/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
@@ -52,6 +56,20 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+  return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                  didFinishLaunchingWithOptions:launchOptions];
+}
+
+// Facebook SDK
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  [FBSDKAppEvents activateApp];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                        openURL:url
+                                              sourceApplication:sourceApplication
+                                                     annotation:annotation];
 }
 
 @end
