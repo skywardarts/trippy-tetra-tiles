@@ -19,6 +19,18 @@
 {
   NSURL *jsCodeLocation;
 
+  NSString *jsBundleUrlString;
+  
+  if (TARGET_IPHONE_SIMULATOR) {
+    jsBundleUrlString = @"http://localhost:8081/index.ios.bundle?platform=ios&dev=false";
+  } else {
+    NSString *serverIP = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SERVER_IP"];
+    NSString *jsCodeUrlString = [NSString stringWithFormat:@"http://%@:8081/index.ios.bundle", serverIP];
+    jsBundleUrlString = [jsCodeUrlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  }
+  
+  jsCodeLocation = [NSURL URLWithString:jsBundleUrlString];
+
   /**
    * Loading JavaScript code - uncomment the one you want.
    *
@@ -35,7 +47,6 @@
 
   // http://moduscreate.com/automated-ip-configuration-for-react-native-development/
   // generate https://github.com/facebook/react-native/issues/240#issuecomment-86977126
-  jsCodeLocation = [NSURL URLWithString:@"http://5e3ab3a5.ngrok.io/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
