@@ -99,7 +99,7 @@ Game.Grid = function (state) {
 Game.Grid.prototype = {
     update: function (fall) {
         // skip if during the "remove line / explode" animation
-        if (Game.status == STATUS_REMOVING_LINES) return;
+        if (Game.status == STATUS_REMOVING_LINES || Game.status == STATUS_GAMEOVER || Game.status == STATUS_READY || Game.status == STATUS_WAITING) return;
 
         // fall defaults to true
         if (fall === undefined) fall = true;
@@ -127,7 +127,7 @@ Game.Grid.prototype = {
                 Game.status = STATUS_GAMEOVER;
             }
 
-            if (Game.status == STATUS_GAMEOVER) return;
+            if (Game.status == STATUS_GAMEOVER || Game.status == STATUS_READY || Game.status == STATUS_WAITING) return;
 
             // draw the pentomino on the board
             _.each(this.pentomino.shape, function (row, y) {
@@ -185,7 +185,6 @@ Game.Grid.prototype = {
     // utility function that constrains a cell x value around the grid
     // so that it never gets outside the grid
     constrainCell: function (cellX, width) {
-        console.log(width)
         if (cellX >= GRID_SIZE_W) return cellX - width;
         if (cellX <= 0 - width) return -width;
         return cellX;
@@ -300,7 +299,7 @@ Game.Grid.prototype = {
                     self.explodingFallCount = GRID_CELL_SIZE / GRID_CELL_FALL_SPEED;
                 }, 100);
 
-                self.explodingStatus = STATUS_EXPLODING_FALLING;
+                self.explodingStatus = STATUS_EXPLODING;
             };
 
             // lower by one row all the rows above the removed line
@@ -382,8 +381,9 @@ Game.Grid.prototype = {
 
                     this.postShakePositionsReset();
 
-                    // reset the status to the normal one
-                    Game.status = STATUS_READY;
+                    // reset the status to playing status
+                    Game.status = STATUS_PLAYING;
+
                     return;
                 }
 
@@ -411,6 +411,7 @@ Game.Grid.prototype = {
             // remove the row from the grid-map and insert an empty one as the first row
             this.grid.splice(GRID_SIZE_H - 1, 1);
             this.grid = [_.map(_.range(GRID_SIZE_W), function () { return 0; })].concat(this.grid);
+
         }
 
         switch (this.gameoverStatus) {
@@ -426,6 +427,10 @@ Game.Grid.prototype = {
                     this.explodingFallCount = GRID_CELL_SIZE / GRID_CELL_FALL_SPEED
 
                     this.gameoverStatus = STATUS_GAMEOVER_EXPLODING;
+                } else {
+                    // reset the status to the normal one
+                    Game.status = STATUS_READY;
+                    this.gameoverStatus = null;
                 }
             break;
             case STATUS_GAMEOVER_EXPLODING:
@@ -433,7 +438,6 @@ Game.Grid.prototype = {
 
                 // one less step to go!
                 this.explodingFallCount--;
-
             break;
         }
     },
@@ -474,7 +478,7 @@ Game.Grid.prototype = {
         if (checkOutBounds === undefined) checkOutBounds = true;
 
         var self = this;
-console.log(this.pentomino.shape);
+
         return _.any(this.pentomino.shape, function (row, y) {
             return _.any(row, function (cell, x) {
                 if (!(cell != 0)) {

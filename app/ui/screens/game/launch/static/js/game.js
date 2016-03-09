@@ -1,4 +1,14 @@
 // MAIN STATE
+
+Game.__defineSetter__('status', function(val) {
+    Game.realStatus = val;
+    console.log('Game status: ' + val);
+});
+
+Game.__defineGetter__('status', function() {
+    return Game.realStatus;
+});
+
 Game.Main = function (game) {
     this.background     = null;
     this.miniBackground = null;
@@ -94,8 +104,7 @@ Game.Main.prototype = {
             // pixel.canvas.style['width'] = window.innerWidth;
             // pixel.canvas.style['height'] = window.innerHeight;
 
-
-            this.overlayGame = new Phaser.Game({width: window.innerWidth, height: window.innerHeight, renderType: Phaser.CANVAS, forceSetTimeOut: true, state: { create: create2.bind(this), render: render2.bind(this), update: update2.bind(this) }});
+            this.overlayGame = new Phaser.Game({width: window.innerWidth, height: window.innerHeight, renderType: Phaser.CANVAS, forceSetTimeOut: true, state: {}});
 
             this.overlayGame.canvas.style['position'] = 'fixed';
             this.overlayGame.canvas.style['top'] = '0';
@@ -107,28 +116,6 @@ Game.Main.prototype = {
             this.overlayGame.stage.disableVisibilityChange = true;
             // this.overlayGame.canvas.style['width'] = '100%';
             // this.overlayGame.canvas.style['height'] = '100%';
-
-            function create2() {
-
-
-                // this.overlayGame.input.onUp.add(function() {
-                //   console.log('UP');
-                // });
-                // this.overlayGame.input.onDown.add(function() {
-                //   console.log('DOWN');
-                // });
-                // this.overlayGame.input.onTap.add(function() {
-                //   console.log('TAP');
-                // });
-            }
-
-            function update2() {
-
-            }
-
-            function render2() {
-
-            }
         } else {
             this.overlayGame = game;
             game.canvas.style['width'] = '100%';
@@ -202,7 +189,13 @@ Game.Main.prototype = {
         this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT).onDown.add(this.grid.movePentomino.bind(this.grid, 1), this);
         this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN).onDown.add(function () { this.speedUp = this.speed / 1.2; }, this);
         this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN).onUp.add(function () { this.speedUp = 0; }, this);
-        this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).onUp.add(function () { Game.status = STATUS_FORCE_FALL, this.speedUp = this.speed * 2; }, this);
+        this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).onUp.add(function () {
+            if (Game.status == STATUS_GAMEOVER || Game.status == STATUS_READY || Game.status == STATUS_WAITING) {
+                return;
+            }
+
+            Game.status = STATUS_FORCE_FALL, this.speedUp = this.speed * 2;
+        }, this);
 
         this.debugKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
         this.debugKey.onDown.add(this.toggleDebug, this);
@@ -254,6 +247,13 @@ Game.Main.prototype = {
                 }
 
                 this.grid.updateGameOverExplosions();
+
+                var pentrisTopScore = localStorage.getItem('pentrisTopScore');
+                if (!pentrisTopScore || this.score > parseInt(pentrisTopScore)) {
+                    this.texts.topScoreValue.text = String(this.score);
+                    localStorage.setItem('pentrisTopScore', String(this.score));
+                }
+
             break;
             case STATUS_READY:
                 this.overlayGame.input.onTap.add(this.reset, this);
@@ -275,12 +275,11 @@ Game.Main.prototype = {
             break;
         }
 
-        //this.game.physics.arcade.collide(tron1.character, this.layer);
-
     },
     reset: function() {
         this.overlayGame.input.onTap.remove(this.reset, this);
 
+        this.gameover.destroy();
         this.gameover = null;
         
         Game.status = STATUS_COUNTDOWN;
