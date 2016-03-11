@@ -1,6 +1,7 @@
 package com.tilr;
 
 import com.facebook.react.ReactActivity;
+import com.microsoft.codepush.react.CodePushReactPackage;
 import com.magus.fblogin.FacebookLoginPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -36,6 +37,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+        new CodePushReactPackage(),
         new FacebookLoginPackage()
         );
     }

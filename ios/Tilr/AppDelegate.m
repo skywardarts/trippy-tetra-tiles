@@ -7,12 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
+// #import <FBSDKCoreKit/FBSDKCoreKit.h>
+// #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "AppDelegate.h"
 
 #import "RCTRootView.h"
-
+#import "CodePush.h"
+ 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -29,7 +30,9 @@
     jsBundleUrlString = [jsCodeUrlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
   }
   
-  jsCodeLocation = [NSURL URLWithString:jsBundleUrlString];
+  //jsCodeLocation = [NSURL URLWithString:jsBundleUrlString];
+
+  jsCodeLocation = [CodePush bundleURL]; //[[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   /**
    * Loading JavaScript code - uncomment the one you want.
@@ -67,20 +70,20 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
-  return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                  didFinishLaunchingWithOptions:launchOptions];
+  // return [[FBSDKApplicationDelegate sharedInstance] application:application
+  //                                 didFinishLaunchingWithOptions:launchOptions];
 }
 
-// Facebook SDK
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-  [FBSDKAppEvents activateApp];
-}
+// // Facebook SDK
+// - (void)applicationDidBecomeActive:(UIApplication *)application {
+//   [FBSDKAppEvents activateApp];
+// }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-  return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                        openURL:url
-                                              sourceApplication:sourceApplication
-                                                     annotation:annotation];
-}
+// - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//   return [[FBSDKApplicationDelegate sharedInstance] application:application
+//                                                         openURL:url
+//                                               sourceApplication:sourceApplication
+//                                                      annotation:annotation];
+// }
 
 @end
