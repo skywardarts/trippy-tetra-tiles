@@ -1,6 +1,8 @@
 var GAME_W               = 256,
     GAME_H               = 523,
 
+    DEBUG_MODE           = true,
+
     GRID_SIZE_W          = 10,
     GRID_SIZE_H          = 20,
     GRID_X               = 76,

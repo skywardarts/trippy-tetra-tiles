@@ -22,7 +22,7 @@ class Launch extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Button onPress={Actions.pop}>Back</Button>
+                <Button style={styles.header}>TTT: Trippy Tetra Tiles</Button>
                 <WebView
                     ref="webviewbridge"
                     style={styles.webView}
@@ -34,6 +34,17 @@ class Launch extends React.Component {
 }
 
 var styles = StyleSheet.create({
+    header: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: Dimensions.get('window').width,
+        color: '#fff',
+        textSize: 30,
+        backgroundColor: '#2D749A',
+        padding: 10,
+        opacity: 0.8
+    },
     container: {
         flex: 1,
         justifyContent: 'center',

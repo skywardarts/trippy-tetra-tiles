@@ -55,7 +55,7 @@ class TabIcon extends React.Component {
 
 class Header extends React.Component {
     render(){
-        return <Text>Header</Text>
+        return <Text style={styles.header}></Text>
     }
 }
 
@@ -107,3 +107,15 @@ export default class Router extends React.Component {
         );
     }
 }
+
+
+import Dimensions from 'Dimensions';
+var styles = StyleSheet.create({
+    header: {
+        width: Dimensions.get('window').width,
+        height: 10,
+        backgroundColor: '#2D749A',
+        opacity: 0.8,
+        color: '#fff'
+    }
+});

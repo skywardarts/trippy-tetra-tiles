@@ -4,7 +4,7 @@ var React = require('react-native');
 var {View, Text, StyleSheet} = React;
 var Button = require('react-native-button');
 var Actions = require('react-native-router-flux').Actions;
-import FacebookButton from '../elements/FacebookButton/FacebookButton';
+//import FacebookButton from '../elements/FacebookButton/FacebookButton';
 var windowSize = Dimensions.get('window');
 import Dimensions from 'Dimensions';
 
@@ -45,7 +45,7 @@ class Login extends React.Component {
                         <Text style={styles.greyFont}>Forgot Password</Text>
                     </View>
                     <View style={styles.forgotContainer}>
-                        <FacebookButton />
+                        
                     </View>
                 </View>
                 <View style={styles.signin}>

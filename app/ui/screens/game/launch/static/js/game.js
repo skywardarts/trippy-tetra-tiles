@@ -51,9 +51,11 @@ Game.Main = function (game) {
 
 Game.Main.prototype = {
     init: function() {
-        this.debugMode = false;
+        this.debugMode = DEBUG_MODE;
 
-        game.add.plugin(Phaser.Plugin.Debug);
+        if (this.debugMode) {
+            game.add.plugin(Phaser.Plugin.Debug);
+        }
     },
     preload: function () {
         this.game.time.advancedTiming = true;
@@ -206,7 +208,7 @@ Game.Main.prototype = {
         // beginSwipe function
         this.overlayGame.input.onDown.add(this.beginSwipe, this);
 
-        setInterval(function() { this.plasmaBackground.update(); }.bind(this), 200);
+        setInterval(function() { this.plasmaBackground.update(); }.bind(this), 40);
     },
     update: function () {
         
