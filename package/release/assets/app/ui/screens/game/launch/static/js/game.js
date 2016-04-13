@@ -37,17 +37,17 @@ Game.Main = function (game) {
         topScoreValue: null,
         lines:         null,
         linesValue:    null
-    }
+    };
 
     this.gameover = null;
 };
 
 
-     // variables used to detect and manage swipes
-     var startX;
-     var startY;
-     var endX;
-     var endY;
+// variables used to detect and manage swipes
+var startX;
+var startY;
+var endX;
+var endY;
 
 Game.Main.prototype = {
     init: function() {
@@ -59,31 +59,10 @@ Game.Main.prototype = {
     },
     preload: function () {
         this.game.time.advancedTiming = true;
-        //setting loading screen background
         this.game.stage.backgroundColor = '#000';
-        // this.load.tilemap('map', 'static/map.json', null, Phaser.Tilemap.TILED_JSON);
-        // this.load.image('tiles', 'static/tileset.png');
-
-        //scaling options
-        //this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-
-        //have the game centered horizontally
-        // this.scale.pageAlignHorizontally = true;
-        // this.scale.pageAlignVertically = true;
-
-        //screen size will be set automatically
-        //this.scale.setScreenSize(true);
     },
     create: function () {
         this.goFullScreen();
-
-        // Create the map
-        // this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        // this.map = this.add.tilemap('map');
-        // this.map.addTilesetImage('Wall', 'tiles');
-
-        // this.layer = this.map.createLayer('Tile Layer 1');
-        // this.layer.resizeWorld();
 
         // hide the real canvas and setup the scaled up one that will be visible
         // http://www.photonstorm.com/phaser/pixel-perfect-scaling-a-phaser-game
@@ -128,11 +107,10 @@ Game.Main.prototype = {
         this.background = this.add.image(0, 0, this.add.bitmapData(game.canvas.width / PLASMA_CELL_SIZE * 2, game.canvas.height / PLASMA_CELL_SIZE * 2));
         this.plasmaBackground = new Game.PlasmaBackground(this.background.key);
 
-        //this.miniBackground     = this.add.image(7, 88, this.make.bitmapData(63, 84));
-
         // cover background image
         this.backgroundCover = this.add.image(0, 0, Game.assets.images.backgroundCoverData);
         this.backgroundCover.alpha = 0.8;
+
 
         // image to display the next pentomino that will fall
         this.nextPentomino = this.add.image(NEXT_PENTOMINO_X, NEXT_PENTOMINO_Y, this.add.bitmapData(NEXT_PENTOMINO_WIDTH, NEXT_PENTOMINO_HEIGHT));
@@ -209,23 +187,55 @@ Game.Main.prototype = {
         this.overlayGame.input.onDown.add(this.beginSwipe, this);
 
         this.plasmaBackground.update();
+
+
+        // Controls
+
+        this.leftControl = this.add.image(CONTROLS.leftArrow.x, CONTROLS.leftArrow.y, this.add.bitmapData(CONTROLS.leftArrow.rect.width, CONTROLS.leftArrow.rect.height));
+        this.leftControl.key.copyRect('images', CONTROLS.leftArrow.rect, 0, 0);
+        this.leftControl.anchor.setTo(0.5);
+        this.leftControl.alpha = 1;
+        this.leftControl.inputEnabled = true;
+        this.leftControl.events.onInputDown.add(this.grid.movePentomino.bind(this.grid, -1), this);
+        this.rightControl = this.add.image(CONTROLS.rightArrow.x, CONTROLS.rightArrow.y, this.add.bitmapData(CONTROLS.rightArrow.rect.width, CONTROLS.rightArrow.rect.height));
+        this.rightControl.key.copyRect('images', CONTROLS.rightArrow.rect, 0, 0);
+        this.rightControl.anchor.setTo(0.5);
+        this.rightControl.alpha = 1;
+        this.rightControl.inputEnabled = true;
+        this.rightControl.events.onInputDown.add(this.grid.movePentomino.bind(this.grid, 1), this);
+        this.rotateControl = this.add.image(CONTROLS.rotateArrow.x, CONTROLS.rotateArrow.y, this.add.bitmapData(CONTROLS.rotateArrow.rect.width, CONTROLS.rotateArrow.rect.height));
+        this.rotateControl.key.copyRect('images', CONTROLS.rotateArrow.rect, 0, 0);
+        this.rotateControl.anchor.setTo(0.5);
+        this.rotateControl.alpha = 1;
+        this.rotateControl.inputEnabled = true;
+        this.rotateControl.events.onInputDown.add(this.grid.rotatePentomino.bind(this.grid), this);
+        this.dropControl = this.add.image(0, 0, this.add.bitmapData(CONTROLS.dropArrow.rect.width, CONTROLS.dropArrow.rect.height));
+        this.dropControl.anchor.setTo(0.5);
+        this.dropControl.alpha = 1;
+        this.dropControl.x = CONTROLS.dropArrow.x;
+        this.dropControl.y = CONTROLS.dropArrow.y;
+        this.dropControl.key.copyRect('images', CONTROLS.dropArrow.rect, 0, 0);
+        this.dropControl.inputEnabled = true;
+        this.dropControl.events.onInputDown.add(function () {
+            if (Game.status == STATUS_GAMEOVER || Game.status == STATUS_READY || Game.status == STATUS_WAITING) {
+                return;
+            }
+
+            Game.status = STATUS_FORCE_FALL, this.speedUp = this.speed * 2;
+        }, this);
         //setInterval(function() { this.plasmaBackground.update(); }.bind(this), 200);
     },
     update: function () {
-
-        // this.plasmaBackground.update();
         // this.plasmaBackground.update();
 
-        //this.miniBackground.key.copyRect(this.background.key, new Phaser.Rectangle(0, 0, 63, 84), 0, 0)
-
-                //  Just renders out the pointer data when you touch the canvas
-                // game.debug.pointer(this.overlayGame.input.mousePointer);
-                // game.debug.pointer(this.overlayGame.input.pointer1);
-                // game.debug.pointer(this.overlayGame.input.pointer2);
-                // game.debug.pointer(this.overlayGame.input.pointer3);
-                // game.debug.pointer(this.overlayGame.input.pointer4);
-                // game.debug.pointer(this.overlayGame.input.pointer5);
-                // game.debug.pointer(this.overlayGame.input.pointer6);
+        //  Just renders out the pointer data when you touch the canvas
+        // game.debug.pointer(this.overlayGame.input.mousePointer);
+        // game.debug.pointer(this.overlayGame.input.pointer1);
+        // game.debug.pointer(this.overlayGame.input.pointer2);
+        // game.debug.pointer(this.overlayGame.input.pointer3);
+        // game.debug.pointer(this.overlayGame.input.pointer4);
+        // game.debug.pointer(this.overlayGame.input.pointer5);
+        // game.debug.pointer(this.overlayGame.input.pointer6);
 
         switch (Game.status) {
             case STATUS_COUNTDOWN:
@@ -296,8 +306,8 @@ Game.Main.prototype = {
         // this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
         // this.game.debug.text(this.score || '--', 20, 14, "#00ff00");
 
-            game.canvas.style['width'] = '100%';
-            game.canvas.style['height'] = '100%';
+            // game.canvas.style['width'] = '100%';
+            // game.canvas.style['height'] = '100%';
         // copy the canvas content to the scaled-up version
         if (RETRO_LOOK) pixel.context.drawImage(game.canvas, 0, 0, game.width, game.height, 0, 0, pixel.width, pixel.height);
     },
@@ -365,10 +375,10 @@ Game.Main.prototype = {
     },
     // function to scale up the game to full screen
     goFullScreen: function() {
-        // this.game.scale.pageAlignHorizontally = true;
-        // this.game.scale.pageAlignVertically = true;
-        // this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        // //this.game.scale.setScreenSize(true);
+        this.game.scale.pageAlignHorizontally = true;
+        this.game.scale.pageAlignVertically = true;
+        this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+        //this.game.scale.setScreenSize(true);
     },
     // when the player begins to swipe we only save mouse/finger coordinates, remove the touch/click
     // input listener and add a new listener to be fired when the mouse/finger has been released,

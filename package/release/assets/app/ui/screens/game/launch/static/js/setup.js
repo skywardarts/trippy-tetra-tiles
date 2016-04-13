@@ -1,5 +1,5 @@
 var GAME_W               = 256,
-    GAME_H               = 523,
+    GAME_H               = 473,
 
     DEBUG_MODE           = false,
 
@@ -87,6 +87,13 @@ var GAME_W               = 256,
         height: 62,
         rect:   new Phaser.Rectangle(0, 477, 119, 62),
         scale:  2
+    },
+
+    CONTROLS = {
+        leftArrow: { x: 200, y: 160, rect: new Phaser.Rectangle(265, 40, 34, 34)},
+        rightArrow: { x: 230, y: 160, rect: new Phaser.Rectangle(304, 40, 34, 34)},
+        rotateArrow: { x: 200, y: 188, rect: new Phaser.Rectangle(265, 80, 34, 34)},
+        dropArrow: { x: 230, y: 188, rect: new Phaser.Rectangle(304, 80, 34, 34)}
     },
 
     RETRO_LOOK = false,
