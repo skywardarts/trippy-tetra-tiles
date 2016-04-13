@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var {AppRegistry} = React;
-import Router from './app/router';
+import Router from './package/release/assets/app/router';
 
 console.disableYellowBox = true;
 

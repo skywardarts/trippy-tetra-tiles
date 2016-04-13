@@ -13,26 +13,28 @@
 
 #import "RCTRootView.h"
 #import "CodePush.h"
+#import "RCTLog.h"
  
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSURL *jsCodeLocation;
+  RCTSetLogThreshold(RCTLogLevelInfo);
+  //NSURL *jsCodeLocation;
 
-  NSString *jsBundleUrlString;
-  
-  if (TARGET_IPHONE_SIMULATOR) {
-    jsBundleUrlString = @"http://localhost:8081/index.ios.bundle?platform=ios&dev=false";
-  } else {
-    NSString *serverIP = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SERVER_IP"];
-    NSString *jsCodeUrlString = [NSString stringWithFormat:@"http://%@:8081/index.ios.bundle", serverIP];
-    jsBundleUrlString = [jsCodeUrlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-  }
-  
+//  NSString *jsBundleUrlString;
+//  
+//  if (TARGET_IPHONE_SIMULATOR) {
+//    jsBundleUrlString = @"http://localhost:8081/index.ios.bundle?platform=ios&dev=false";
+//  } else {
+//    NSString *serverIP = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SERVER_IP"];
+//    NSString *jsCodeUrlString = [NSString stringWithFormat:@"http://%@:8081/index.ios.bundle", serverIP];
+//    jsBundleUrlString = [jsCodeUrlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//  }
+//  
   //jsCodeLocation = [NSURL URLWithString:jsBundleUrlString];
 
-  jsCodeLocation = [CodePush bundleURL]; //[[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  //[[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   /**
    * Loading JavaScript code - uncomment the one you want.
@@ -59,13 +61,31 @@
 
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
+  NSURL *jsCodeLocation;
+  
+  jsCodeLocation = [CodePush bundleURL];
+
+
+    NSLog(@"bundle URL: %@", [jsCodeLocation absoluteString]);
+//  NSString *jsBundleUrlString;
+//  
+//  if (TARGET_IPHONE_SIMULATOR) {
+//    jsBundleUrlString = @"http://localhost:8081/index.ios.bundle?platform=ios&dev=false";
+//  } else {
+//    NSString *serverIP = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SERVER_IP"];
+//    NSString *jsCodeUrlString = [NSString stringWithFormat:@"http://%@:8081/index.ios.bundle", serverIP];
+//    jsBundleUrlString = [jsCodeUrlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//  }
+//  jsCodeLocation = [NSURL URLWithString:jsBundleUrlString];
+
+
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"Router"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
+  UIViewController *rootViewController = [[UIViewController alloc] init];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];

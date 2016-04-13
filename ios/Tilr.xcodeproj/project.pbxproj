@@ -22,10 +22,11 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5F54BC651C91E81700D51662 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F54BC641C91E81700D51662 /* libz.tbd */; };
+		5F54BCEF1C94B7C800D51662 /* package in Resources */ = {isa = PBXBuildFile; fileRef = 5F54BCEE1C94B7C800D51662 /* package */; };
 		60F016A5A980450490A95B23 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5D292A2C63446895E26850 /* libCodePush.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		98D605D223A84912A35C662F /* libRNHTTPServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 159576234385494DB226FC0A /* libRNHTTPServer.a */; };
 		B4A7428172FD4B3090ADA8FB /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8054291719B843069B21E15A /* libReact-Native-Webview-Bridge.a */; };
-		B8B3CCAF56ED49F5BF0F2FFD /* AdUnitsSample.app in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2FC20BEF7146E4A6A5CD33 /* AdUnitsSample.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,20 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = CodePush;
 		};
+		5F54BCCB1C928D6800D51662 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8ABE3D3BC5AE41AA90792159 /* AdUnitsSample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 58D92C4418C750E10090E7E2;
+			remoteInfo = AdUnitsSample;
+		};
+		5F54BCDD1C928D6800D51662 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2669D72FA854E3DB0F7794B /* RNHTTPServer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4B985BA41BFA6E160082EAF3;
+			remoteInfo = RNHTTPServer;
+		};
 		5FD8C0041C8F268200F7C012 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 89686FDAF05B46D59F790ACD /* React-Native-Webview-Bridge.xcodeproj */;
@@ -141,7 +156,7 @@
 		00E356F21AD99517003FC87E /* TilrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TilrTests.m; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Tilr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tilr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* TTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Tilr/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Tilr/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -149,8 +164,10 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tilr/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Tilr/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		159576234385494DB226FC0A /* libRNHTTPServer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNHTTPServer.a; sourceTree = "<group>"; };
 		3F40508386254E508CA55383 /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		5F54BC641C91E81700D51662 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		5F54BCEE1C94B7C800D51662 /* package */ = {isa = PBXFileReference; lastKnownFileType = folder; name = package; path = ../package; sourceTree = "<group>"; };
 		5FD8C02C1C8F2DD200F7C012 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		5FD8C02D1C8F2DD200F7C012 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		5FD8C02E1C8F2DD200F7C012 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKShareKit.framework"; sourceTree = "<group>"; };
@@ -159,7 +176,8 @@
 		8054291719B843069B21E15A /* libReact-Native-Webview-Bridge.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libReact-Native-Webview-Bridge.a"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		89686FDAF05B46D59F790ACD /* React-Native-Webview-Bridge.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = "React-Native-Webview-Bridge.xcodeproj"; path = "../node_modules/react-native-webview-bridge/ios/React-Native-Webview-Bridge.xcodeproj"; sourceTree = "<group>"; };
-		9B2FC20BEF7146E4A6A5CD33 /* AdUnitsSample.app */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AdUnitsSample.app; sourceTree = "<group>"; };
+		8ABE3D3BC5AE41AA90792159 /* AdUnitsSample.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AdUnitsSample.xcodeproj; path = "../node_modules/react-native-facebook-login/FacebookSDK/Samples/FBAudienceNetwork/AdUnitsSample/AdUnitsSample.xcodeproj"; sourceTree = "<group>"; };
+		B2669D72FA854E3DB0F7794B /* RNHTTPServer.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNHTTPServer.xcodeproj; path = "../node_modules/react-native-httpserver/ios/RNHTTPServer.xcodeproj"; sourceTree = "<group>"; };
 		C58E9684527C4CBD96869862 /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,8 +205,8 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				B4A7428172FD4B3090ADA8FB /* libReact-Native-Webview-Bridge.a in Frameworks */,
-				B8B3CCAF56ED49F5BF0F2FFD /* AdUnitsSample.app in Frameworks */,
 				60F016A5A980450490A95B23 /* libCodePush.a in Frameworks */,
+				98D605D223A84912A35C662F /* libRNHTTPServer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +316,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5F54BCC81C928D6800D51662 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5F54BCCC1C928D6800D51662 /* AdUnitsSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5F54BCDA1C928D6800D51662 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5F54BCDE1C928D6800D51662 /* libRNHTTPServer.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5FD8BFF81C8F268200F7C012 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +383,8 @@
 				89686FDAF05B46D59F790ACD /* React-Native-Webview-Bridge.xcodeproj */,
 				3F40508386254E508CA55383 /* RCTFBLogin.xcodeproj */,
 				C58E9684527C4CBD96869862 /* CodePush.xcodeproj */,
+				8ABE3D3BC5AE41AA90792159 /* AdUnitsSample.xcodeproj */,
+				B2669D72FA854E3DB0F7794B /* RNHTTPServer.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -364,6 +400,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5F54BCEE1C94B7C800D51662 /* package */,
 				5FD8C01F1C8F2ABD00F7C012 /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* Tilr */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -377,7 +414,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Tilr.app */,
+				13B07F961A680F5B00A75B9A /* TTT.app */,
 				00E356EE1AD99517003FC87E /* TilrTests.xctest */,
 			);
 			name = Products;
@@ -420,7 +457,7 @@
 			);
 			name = Tilr;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* Tilr.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* TTT.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -453,6 +490,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 5F54BCC81C928D6800D51662 /* Products */;
+					ProjectRef = 8ABE3D3BC5AE41AA90792159 /* AdUnitsSample.xcodeproj */;
+				},
 				{
 					ProductGroup = 5F54BC531C91E7F300D51662 /* Products */;
 					ProjectRef = C58E9684527C4CBD96869862 /* CodePush.xcodeproj */;
@@ -504,6 +545,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 5F54BCDA1C928D6800D51662 /* Products */;
+					ProjectRef = B2669D72FA854E3DB0F7794B /* RNHTTPServer.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -578,6 +623,20 @@
 			remoteRef = 5F54BC561C91E7F400D51662 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		5F54BCCC1C928D6800D51662 /* AdUnitsSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = AdUnitsSample.app;
+			remoteRef = 5F54BCCB1C928D6800D51662 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5F54BCDE1C928D6800D51662 /* libRNHTTPServer.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNHTTPServer.a;
+			remoteRef = 5F54BCDD1C928D6800D51662 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		5FD8C0051C8F268200F7C012 /* libReact-Native-Webview-Bridge.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -620,6 +679,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F54BCEF1C94B7C800D51662 /* package in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -719,6 +779,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tilr.app/Tilr";
@@ -743,6 +804,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tilr.app/Tilr";
@@ -753,6 +815,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -767,13 +830,16 @@
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-httpserver/vendor/mongoose_2.6/**",
 				);
 				INFOPLIST_FILE = Tilr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stokegames.TilrGame;
-				PRODUCT_NAME = Tilr;
+				PRODUCT_NAME = TTT;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -782,6 +848,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -795,13 +862,16 @@
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-httpserver/vendor/mongoose_2.6/**",
 				);
 				INFOPLIST_FILE = Tilr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stokegames.TilrGame;
-				PRODUCT_NAME = Tilr;
+				PRODUCT_NAME = TTT;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -848,6 +918,8 @@
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-httpserver/vendor/mongoose_2.6/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -892,6 +964,8 @@
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-httpserver/vendor/mongoose_2.6/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
