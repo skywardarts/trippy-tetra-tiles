@@ -1,38 +1,31 @@
-## Native Starter - Starter Kit for React Native Apps (iOS)
+# TTT: Trippy Tetra Tiles
 
-[![Join the chat at https://gitter.im/start-react/native-starter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/start-react/native-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+TTT is a React Native app with a WebView wrapper for a React.js web app using the HTML5 Phaser game engine. Deploys on iOS/Android.
 
-This is a simple starter project for React Native apps on iOS and Android.
 
-Find out more [Free React.js and React Native Themes at StartReact.com](http://www.startreact.com/).
+## Features
 
-## Demo
+* Blah blah
 
-![Demo](/Screenshots/demo.gif "Login Screen")
 
+## Coming soon
+
+* Blah blah
 
 
 ## Installation
-####1. Clone this project or Download that ZIP file
 
-```sh
-$ git clone https://github.com/stokegames/tilr.git
-```
+* Install Node.js v5.5.0
+* Run `npm install`.
 
-####2.  Make sure you have [npm](https://www.npmjs.org/) installed globally
 
-More details here
-https://nodejs.org/en/download/ 
+## Getting Started
 
-####3. On the command prompt run the following commands
+* Navigate to the folder.
+* Run `node server.js`.
+* Open `http://localhost:8080/index.html` in your browser.
 
-```sh
-$ cd Tilr
-```
-```sh
-$ npm install 
-```
 
-####4. Open the project in XCode from ios/Tilr.xcodeproj
-####5. Hit the play button (Cmd + R)
+## Bugs
 
+* Blah blah
