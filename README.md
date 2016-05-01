@@ -25,6 +25,8 @@ TTT is a React Native app with a WebView wrapper for a React.js web app using th
 * Run `node server.js`.
 * Open `http://localhost:8080/index.html` in your browser.
 
+Game is in `package/release/assets/app/ui/screens/game/launch`.
+
 
 ## Bugs
 
