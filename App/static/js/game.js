@@ -85,7 +85,7 @@ Game.Main.prototype = {
             // pixel.canvas.style['width'] = window.innerWidth;
             // pixel.canvas.style['height'] = window.innerHeight;
 
-            this.overlayGame = new Phaser.Game({width: window.innerWidth, height: window.innerHeight, renderType: Phaser.CANVAS, forceSetTimeOut: true, state: {}});
+            this.overlayGame = new Phaser.Game({width: 375, height: window.innerHeight, renderType: Phaser.CANVAS, forceSetTimeOut: true, state: {}});
 
             this.overlayGame.canvas.style['position'] = 'fixed';
             this.overlayGame.canvas.style['top'] = '0';
@@ -99,7 +99,7 @@ Game.Main.prototype = {
             // this.overlayGame.canvas.style['height'] = '100%';
         } else {
             this.overlayGame = game;
-            game.canvas.style['width'] = '100%';
+            game.canvas.style['width'] = '375px';
             game.canvas.style['height'] = '100%';
         }
 
@@ -377,7 +377,7 @@ Game.Main.prototype = {
     goFullScreen: function() {
         this.game.scale.pageAlignHorizontally = true;
         this.game.scale.pageAlignVertically = true;
-        this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         //this.game.scale.setScreenSize(true);
     },
     // when the player begins to swipe we only save mouse/finger coordinates, remove the touch/click

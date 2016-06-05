@@ -99,7 +99,7 @@ var GAME_W               = 256,
     RETRO_LOOK = false,
 
     game = new Phaser.Game({width: GAME_W, height: GAME_H, renderType: Phaser.WEBGL, parent: '', preserveDrawingBuffer: true, transparent: false, antialias: false}),
-    pixel = { scale: window.innerWidth / GAME_W, canvas: null, context: null, width: 0, height: 0 },
+    pixel = { scale: 375 / GAME_W, canvas: null, context: null, width: 0, height: 0 },
 
     Game = {
         status: STATUS_PLAYING,

@@ -75,13 +75,22 @@ class Launch extends React.Component {
         // });
     }
     render() {
+        var host = null;
+        var isProd = false;
+
+        if (isProd) {
+            host = 'https://stokegames.com';
+        } else {
+            host = 'http://localhost:8082';
+        }
+
         return (
             <View style={styles.container}>
                 <Button style={styles.header}>TTT: Trippy Tetra Tiles</Button>
                 <WebView
                     ref="webviewbridge"
                     style={styles.webView}
-                    url={"http://127.0.0.1:8082/package/release/assets/app/ui/screens/game/launch/launch.html"}
+                    url={host + "/index.html"}
                 />
             </View>
         );
